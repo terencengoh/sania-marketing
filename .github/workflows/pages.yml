@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Decode Open Graph image
+        run: base64 -d og-image.b64 > og-image.png
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
