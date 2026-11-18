@@ -2,7 +2,7 @@
 
 Public website for **SANIA Marketing**, a marketing agency that helps HVAC companies with websites, local SEO, Google Ads and Local Services Ads, Meta ads, lead generation, and booked-call support.
 
-Live site: https://terencengoh.github.io/sania-marketing/
+Intended live site: https://terencengoh.github.io/sania-marketing/
 
 SANIA does **not** perform HVAC installation, repair, or maintenance.
 
@@ -27,6 +27,14 @@ python3 -m http.server 8080
 
 Then visit http://localhost:8080/
 
-## Deploy
+## Deploy (GitHub Pages)
 
-The site is a static GitHub Pages project published from the `main` branch (root), with a GitHub Actions workflow in `.github/workflows/pages.yml`.
+A deploy workflow lives at `.github/workflows/pages.yml`. GitHub does not turn Pages on automatically for a new repository, and the available tools cannot flip that setting.
+
+To publish the site:
+
+1. Open [Settings → Pages](https://github.com/terencengoh/sania-marketing/settings/pages).
+2. Under **Build and deployment**, set **Source** to **GitHub Actions**.
+3. Re-run the **Deploy GitHub Pages** workflow from the [Actions tab](https://github.com/terencengoh/sania-marketing/actions/workflows/pages.yml).
+
+The site will then be available at https://terencengoh.github.io/sania-marketing/
