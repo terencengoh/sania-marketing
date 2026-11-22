@@ -1,6 +1,6 @@
-# SANIA Marketing
+# SANIA Growth Partner
 
-Public website for **SANIA Marketing**, a marketing agency that helps HVAC companies with websites, local SEO, Google Ads and Local Services Ads, Meta ads, lead generation, and booked-call support.
+Public website for **SANIA Growth Partner**, a marketing agency that helps HVAC companies with websites, local SEO, Google Ads and Local Services Ads, Meta ads, lead generation, and booked-call support.
 
 Intended live site: https://terencengoh.github.io/sania-marketing/
 
