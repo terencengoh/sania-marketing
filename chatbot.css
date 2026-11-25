@@ -1,0 +1,123 @@
+/* SANIA Growth Partner — automated site assistant (rule-based, no external services) */
+.sgp-chat {
+  --c-navy: var(--navy, #17233A);
+  --c-navy-2: var(--navy-2, #1E2F4A);
+  --c-copper: var(--copper, #C2612C);
+  --c-copper-dark: var(--copper-dark, #9A4A1F);
+  --c-copper-soft: var(--copper-soft, #F3E0D2);
+  --c-cream: var(--cream, #FFFBF5);
+  --c-paper: var(--paper, #F7F3EC);
+  --c-line: var(--line, #DDD4C6);
+  --c-ink: var(--ink, #101826);
+  --c-muted: var(--muted, #5B6573);
+  font-family: var(--sans, "Figtree", "Segoe UI", system-ui, sans-serif);
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: var(--c-ink);
+}
+.sgp-chat *, .sgp-chat *::before, .sgp-chat *::after { box-sizing: border-box; }
+
+.sgp-chat-launcher {
+  position: fixed; right: 20px; bottom: 20px; z-index: 9998;
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  height: 56px; padding: 0 1.15rem 0 0.95rem; border: 0; border-radius: 999px;
+  background: var(--c-copper); color: #fff; font: inherit; font-weight: 600; cursor: pointer;
+  box-shadow: 0 12px 30px rgba(16, 24, 38, 0.25);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.sgp-chat-launcher:hover { background: var(--c-copper-dark); transform: translateY(-1px); }
+.sgp-chat-launcher:focus-visible { outline: 3px solid var(--c-navy); outline-offset: 3px; }
+.sgp-chat-launcher svg { width: 24px; height: 24px; flex-shrink: 0; }
+.sgp-chat-launcher[aria-expanded="true"] .sgp-chat-launcher-label { display: none; }
+.sgp-chat-launcher[aria-expanded="true"] { padding: 0; width: 56px; justify-content: center; }
+
+.sgp-chat-panel {
+  position: fixed; right: 20px; bottom: 88px; z-index: 9999;
+  width: 380px; max-width: calc(100vw - 24px);
+  height: 560px; max-height: calc(100vh - 110px);
+  display: flex; flex-direction: column; overflow: hidden;
+  background: var(--c-cream); border: 1px solid var(--c-line); border-radius: 18px;
+  box-shadow: 0 24px 60px rgba(16, 24, 38, 0.28);
+}
+.sgp-chat-panel[hidden] { display: none; }
+
+.sgp-chat-head {
+  display: flex; align-items: center; gap: 0.7rem;
+  padding: 0.8rem 0.9rem; background: var(--c-navy); color: #fff;
+}
+.sgp-chat-avatar {
+  width: 36px; height: 36px; border-radius: 10px; background: var(--c-navy-2);
+  display: grid; place-items: center; flex-shrink: 0;
+}
+.sgp-chat-avatar svg { width: 36px; height: 36px; }
+.sgp-chat-title { flex: 1; min-width: 0; }
+.sgp-chat-title strong { display: block; font-size: 0.98rem; }
+.sgp-chat-title span { display: block; font-size: 0.75rem; color: var(--c-copper-soft); }
+.sgp-chat-iconbtn {
+  background: transparent; border: 0; color: #fff; cursor: pointer; border-radius: 8px;
+  width: 34px; height: 34px; display: grid; place-items: center; font-size: 1.35rem; line-height: 1;
+}
+.sgp-chat-iconbtn:hover { background: var(--c-navy-2); }
+.sgp-chat-iconbtn:focus-visible { outline: 2px solid var(--c-copper-soft); outline-offset: 1px; }
+
+.sgp-chat-notice {
+  font-size: 0.74rem; color: var(--c-muted); background: var(--c-paper);
+  padding: 0.45rem 0.9rem; border-bottom: 1px solid var(--c-line);
+}
+
+.sgp-chat-log {
+  flex: 1; overflow-y: auto; padding: 0.9rem; display: flex; flex-direction: column; gap: 0.55rem;
+  scroll-behavior: smooth;
+}
+.sgp-msg { max-width: 88%; padding: 0.6rem 0.8rem; border-radius: 14px; white-space: pre-line; word-wrap: break-word; }
+.sgp-msg a { color: var(--c-copper-dark); font-weight: 600; }
+.sgp-msg-bot { align-self: flex-start; background: #fff; border: 1px solid var(--c-line); border-bottom-left-radius: 4px; }
+.sgp-msg-user { align-self: flex-end; background: var(--c-navy); color: #fff; border-bottom-right-radius: 4px; }
+.sgp-msg-user a { color: #fff; }
+.sgp-msg-summary { background: var(--c-paper); font-size: 0.88rem; }
+
+.sgp-replies { display: flex; flex-wrap: wrap; gap: 0.4rem; align-self: flex-start; max-width: 100%; }
+.sgp-reply {
+  font: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer;
+  padding: 0.4rem 0.75rem; border-radius: 999px;
+  border: 1.5px solid var(--c-copper); background: #fff; color: var(--c-copper-dark);
+  text-decoration: none; display: inline-block; line-height: 1.3;
+}
+.sgp-reply:hover { background: var(--c-copper-soft); }
+.sgp-reply:focus-visible { outline: 3px solid var(--c-navy); outline-offset: 2px; }
+.sgp-reply.sgp-primary { background: var(--c-copper); color: #fff; }
+.sgp-reply.sgp-primary:hover { background: var(--c-copper-dark); }
+.sgp-reply[disabled] { opacity: 0.5; cursor: default; }
+
+.sgp-typing { align-self: flex-start; color: var(--c-muted); font-size: 0.8rem; padding: 0 0.3rem; }
+
+.sgp-chat-form {
+  display: flex; gap: 0.45rem; padding: 0.65rem; border-top: 1px solid var(--c-line); background: #fff;
+}
+.sgp-chat-form input {
+  flex: 1; min-width: 0; font: inherit; font-size: 16px; /* 16px avoids iOS zoom */
+  padding: 0.55rem 0.75rem; border: 1px solid var(--c-line); border-radius: 10px; background: var(--c-cream); color: var(--c-ink);
+}
+.sgp-chat-form input:focus { outline: 2px solid var(--c-copper-soft); border-color: var(--c-copper); }
+.sgp-chat-send {
+  font: inherit; font-weight: 600; border: 0; border-radius: 10px; padding: 0 0.95rem;
+  background: var(--c-copper); color: #fff; cursor: pointer;
+}
+.sgp-chat-send:hover { background: var(--c-copper-dark); }
+.sgp-chat-send:focus-visible { outline: 3px solid var(--c-navy); outline-offset: 2px; }
+.sgp-sr { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+@media (max-width: 520px) {
+  .sgp-chat-launcher { right: 14px; bottom: 14px; }
+  .sgp-chat-launcher-label { display: none; }
+  .sgp-chat-launcher { width: 56px; padding: 0; justify-content: center; }
+  .sgp-chat-panel {
+    right: 0; left: 0; bottom: 0; top: 0; width: 100%; max-width: 100%;
+    height: 100%; max-height: 100%; border-radius: 0; border: 0;
+  }
+  .sgp-chat-launcher[aria-expanded="true"] { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sgp-chat-launcher, .sgp-chat-log { transition: none; scroll-behavior: auto; }
+}
+@media print { .sgp-chat { display: none !important; } }
